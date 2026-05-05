@@ -21,6 +21,71 @@ The project focuses on the following goals:
 - Rank potential renewable investment locations using AI-based scoring models
 - Provide an interactive dashboard to analyze renewable investment opportunities
 
+Run Locally
+-----------
+
+Prerequisites:
+
+- Python 3.11+
+- pip
+
+1) Create and activate a virtual environment:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+2) Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3) Create environment file:
+
+```bash
+cp .env.example .env
+```
+
+4) Start the API:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+The API will be available at:
+
+- `http://127.0.0.1:8000`
+- Swagger UI: `http://127.0.0.1:8000/docs`
+
+API Quick Check
+---------------
+
+Health check:
+
+```bash
+curl http://127.0.0.1:8000/health
+```
+
+Analyze endpoint example:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/analyze" \
+  -H "Content-Type: application/json" \
+  -d '{"latitude":41.0082,"longitude":28.9784}'
+```
+
+Expected response shape:
+
+```json
+{
+  "annual_energy_kwh": 0.0,
+  "estimated_lcoe": 0.0,
+  "summary": "Estimated annual production is ... kWh with an LCOE of ... USD/kWh."
+}
+```
+
 License
 -------
 
