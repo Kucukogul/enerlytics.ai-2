@@ -117,7 +117,6 @@ def fetch_historical_monthly_ghi_kwh_m2(
         "longitude": longitude,
         "latitude": latitude,
         "format": settings.nasa_power_format,
-        # NASA POWER monthly endpoint expects year-based range.
         "start": str(start_year),
         "end": str(end_year),
     }

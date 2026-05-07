@@ -9,3 +9,7 @@ __pycache__/
 
 .venv/
 venv/
+
+# Data artifacts (local only)
+data/**
+!data/README.md

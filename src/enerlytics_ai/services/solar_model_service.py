@@ -4,16 +4,17 @@ from enerlytics_ai.app.config import settings
 from enerlytics_ai.services import pvgis_data_service, solar_data_service
 
 
-def _fetch_solar_data(latitude: float, longitude: float) -> dict:
-    if settings.solar_data_provider == "nasa":
+def _fetch_solar_data(latitude: float, longitude: float, provider: str | None = None) -> dict:
+    selected = (provider or settings.solar_data_provider).lower()
+    if selected == "nasa":
         return solar_data_service.fetch_annual_ghi_kwh_m2(latitude=latitude, longitude=longitude)
-    if settings.solar_data_provider == "pvgis":
+    if selected == "pvgis":
         return pvgis_data_service.fetch_annual_ghi_kwh_m2(latitude=latitude, longitude=longitude)
-    raise ValueError("Invalid SOLAR_DATA_PROVIDER. Supported values: nasa, pvgis.")
+    raise ValueError("Invalid solar data provider. Supported values: nasa, pvgis.")
 
 
-def analyze_site(latitude: float, longitude: float) -> dict:
-    solar_data = _fetch_solar_data(latitude=latitude, longitude=longitude)
+def analyze_site(latitude: float, longitude: float, provider: str | None = None) -> dict:
+    solar_data = _fetch_solar_data(latitude=latitude, longitude=longitude, provider=provider)
     annual_energy_kwh = estimate_annual_energy_kwh(solar_data["annual_irradiance_kwh_m2"])
     estimated_lcoe_usd = estimate_lcoe_usd_per_kwh(annual_energy_kwh)
     lcoe_try_kwh = round(estimated_lcoe_usd * settings.usd_try, 4)

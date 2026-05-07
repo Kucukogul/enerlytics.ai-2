@@ -24,7 +24,12 @@ class Settings:
     enable_nasa_cache: bool = os.getenv("ENABLE_NASA_CACHE", "true").lower() == "true"
     nasa_cache_dir: str = os.getenv("NASA_CACHE_DIR", "data/raw/nasa_power")
     nasa_cache_ttl_hours: int = int(os.getenv("NASA_CACHE_TTL_HOURS", "720"))
-    pvgis_base_url: str = os.getenv("PVGIS_BASE_URL", "https://re.jrc.ec.europa.eu/api/seriescalc")
+    pvgis_base_url: str = os.getenv("PVGIS_BASE_URL", "https://re.jrc.ec.europa.eu/api/v5_2/MRcalc")
+    pvgis_start_year: int = int(os.getenv("PVGIS_START_YEAR", "2015"))
+    pvgis_end_year: int = int(os.getenv("PVGIS_END_YEAR", "2020"))
+    enable_pvgis_cache: bool = os.getenv("ENABLE_PVGIS_CACHE", "true").lower() == "true"
+    pvgis_cache_dir: str = os.getenv("PVGIS_CACHE_DIR", "data/raw/pvgis")
+    pvgis_cache_ttl_hours: int = int(os.getenv("PVGIS_CACHE_TTL_HOURS", "720"))
 
     panel_efficiency: float = float(os.getenv("PANEL_EFFICIENCY", "0.20"))
     system_losses: float = float(os.getenv("SYSTEM_LOSSES", "0.14"))
